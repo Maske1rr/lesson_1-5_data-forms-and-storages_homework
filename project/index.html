@@ -27,10 +27,6 @@
       <section class="intro" aria-labelledby="page-title">
         <p class="intro__eyebrow">Формы и хранилища</p>
         <h1 class="intro__title" id="page-title">Сохраненная карточка</h1>
-        <p class="intro__lead">
-          Выберите тему, настройте форму и самостоятельно свяжите ввод,
-          отображение и хранение данных.
-        </p>
       </section>
 
       <section class="workspace" id="workspace" aria-labelledby="workspace-title">
@@ -39,8 +35,6 @@
             <p class="workspace__kicker">Рабочая область</p>
             <h2 class="workspace__title" id="workspace-title">Ваша тема</h2>
           </div>
-
-          <p class="workspace__status" aria-live="polite">Данные еще не проверены</p>
         </header>
 
         <!-- Состояние 1: показывается, когда сохраненных данных нет. -->
@@ -68,7 +62,6 @@
                 <p class="card-form__kicker">Редактирование</p>
                 <h3 class="card-form__title">Данные карточки</h3>
               </div>
-              <p class="card-form__note">Добавьте еще минимум три осмысленных поля</p>
             </header>
 
             <!-- Это один пример связки label, id и name. Остальные поля создайте сами. -->
@@ -134,7 +127,7 @@
             </div>
 
             <div class="field">
-              <label class="field__label" for="card-rating">Моя оценка</label>
+              <label class="field__label" for="card-rating">Оценка</label>
               <input
                 class="field__control"
                 id="card-rating"
@@ -197,7 +190,7 @@
                 <dd data-card-field="watchedAt"></dd>
               </div>
               <div class="saved-card__row">
-                <dt>Моя оценка</dt>
+                <dt>Оценка</dt>
                 <dd data-card-field="rating"></dd>
               </div>
               <div class="saved-card__row">

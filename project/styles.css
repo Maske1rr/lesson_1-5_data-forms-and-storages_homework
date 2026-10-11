@@ -212,6 +212,7 @@ textarea {
 .card-form__title,
 .saved-card__title {
   font-size: clamp(1.8rem, 4vw, 3rem);
+  overflow-wrap: anywhere;
 }
 
 .card-form__note {
