@@ -5,6 +5,7 @@ console.log("Стартовый проект подключен")
 
 const form = document.querySelector(".card-form");
 const panels = document.querySelectorAll("[data-state-panel]");
+const editorPanel = document.querySelector('[data-state-panel="editor"]');
 const cardFields = document.querySelectorAll("[data-card-field]");
 const createButton = document.querySelector('[data-action="create"]');
 const cancelButton = document.querySelector('[data-action="cancel"]');
@@ -124,6 +125,24 @@ deleteButton.addEventListener("click", () => {
   localStorage.removeItem(STORAGE_KEY);
   form.reset();
   showState("empty");
+});
+
+window.addEventListener("storage", (event) => {
+  if (event.key !== null && event.key !== STORAGE_KEY) {
+    return;
+  }
+
+  savedCard = readJson(localStorage, STORAGE_KEY);
+
+  if (savedCard) {
+    renderCard(savedCard);
+  }
+
+  if (!editorPanel.hidden) {
+    return;
+  }
+
+  showState(savedCard ? "viewer" : "empty");
 });
 
 savedCard = readJson(localStorage, STORAGE_KEY);
