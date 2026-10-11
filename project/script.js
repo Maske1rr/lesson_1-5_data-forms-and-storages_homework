@@ -11,6 +11,7 @@ const cancelButton = document.querySelector('[data-action="cancel"]');
 const editButton = document.querySelector('[data-action="edit"]');
 const deleteButton = document.querySelector('[data-action="delete"]');
 const watchedAtError = document.querySelector("#card-watched-at-error");
+const draftNote = document.querySelector(".card-form__draft");
 
 const STORAGE_KEY = "movie-card";
 const DRAFT_KEY = "movie-card-draft";
@@ -58,6 +59,11 @@ function checkWatchedAt() {
   return isValid;
 }
 
+function clearDraft() {
+  sessionStorage.removeItem(DRAFT_KEY);
+  draftNote.hidden = true;
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -79,7 +85,7 @@ form.addEventListener("submit", (event) => {
 
   savedCard = card;
   saveCard(savedCard);
-  sessionStorage.removeItem(DRAFT_KEY);
+  clearDraft();
   renderCard(savedCard);
   showState("viewer");
 });
@@ -91,22 +97,25 @@ form.addEventListener("input", () => {
 
   const draft = Object.fromEntries(new FormData(form));
   sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  draftNote.hidden = false;
 });
 
 createButton.addEventListener("click", () => {
   form.reset();
   watchedAtError.hidden = true;
+  draftNote.hidden = true;
   showState("editor");
 });
 
 cancelButton.addEventListener("click", () => {
-  sessionStorage.removeItem(DRAFT_KEY);
+  clearDraft();
   showState(savedCard ? "viewer" : "empty");
 });
 
 editButton.addEventListener("click", () => {
   fillForm(savedCard);
   watchedAtError.hidden = true;
+  draftNote.hidden = true;
   showState("editor");
 });
 
@@ -127,6 +136,7 @@ const draft = readJson(sessionStorage, DRAFT_KEY);
 
 if (draft) {
   fillForm(draft);
+  draftNote.hidden = false;
   showState("editor");
 } else if (savedCard) {
   showState("viewer");
