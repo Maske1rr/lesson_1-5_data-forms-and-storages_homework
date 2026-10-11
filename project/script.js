@@ -11,7 +11,23 @@ const cancelButton = document.querySelector('[data-action="cancel"]');
 const editButton = document.querySelector('[data-action="edit"]');
 const deleteButton = document.querySelector('[data-action="delete"]');
 
+const STORAGE_KEY = "movie-card";
+
 let savedCard = null;
+
+function saveCard(card) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(card));
+}
+
+function loadCard() {
+  const json = localStorage.getItem(STORAGE_KEY);
+
+  if (json === null) {
+    return null;
+  }
+
+  return JSON.parse(json);
+}
 
 function showState(name) {
   panels.forEach((panel) => {
@@ -46,6 +62,7 @@ form.addEventListener("submit", (event) => {
   };
 
   savedCard = card;
+  saveCard(savedCard);
   renderCard(savedCard);
   showState("viewer");
 });
@@ -66,6 +83,16 @@ editButton.addEventListener("click", () => {
 
 deleteButton.addEventListener("click", () => {
   savedCard = null;
+  localStorage.removeItem(STORAGE_KEY);
   form.reset();
   showState("empty");
 });
+
+savedCard = loadCard();
+
+if (savedCard) {
+  renderCard(savedCard);
+  showState("viewer");
+} else {
+  showState("empty");
+}
