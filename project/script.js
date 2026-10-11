@@ -12,6 +12,7 @@ const editButton = document.querySelector('[data-action="edit"]');
 const deleteButton = document.querySelector('[data-action="delete"]');
 
 const STORAGE_KEY = "movie-card";
+const DRAFT_KEY = "movie-card-draft";
 
 let savedCard = null;
 
@@ -19,8 +20,8 @@ function saveCard(card) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(card));
 }
 
-function loadCard() {
-  const json = localStorage.getItem(STORAGE_KEY);
+function readJson(storage, key) {
+  const json = storage.getItem(key);
 
   if (json === null) {
     return null;
@@ -63,8 +64,14 @@ form.addEventListener("submit", (event) => {
 
   savedCard = card;
   saveCard(savedCard);
+  sessionStorage.removeItem(DRAFT_KEY);
   renderCard(savedCard);
   showState("viewer");
+});
+
+form.addEventListener("input", () => {
+  const draft = Object.fromEntries(new FormData(form));
+  sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 });
 
 createButton.addEventListener("click", () => {
@@ -73,6 +80,7 @@ createButton.addEventListener("click", () => {
 });
 
 cancelButton.addEventListener("click", () => {
+  sessionStorage.removeItem(DRAFT_KEY);
   showState(savedCard ? "viewer" : "empty");
 });
 
@@ -88,10 +96,18 @@ deleteButton.addEventListener("click", () => {
   showState("empty");
 });
 
-savedCard = loadCard();
+savedCard = readJson(localStorage, STORAGE_KEY);
 
 if (savedCard) {
   renderCard(savedCard);
+}
+
+const draft = readJson(sessionStorage, DRAFT_KEY);
+
+if (draft) {
+  fillForm(draft);
+  showState("editor");
+} else if (savedCard) {
   showState("viewer");
 } else {
   showState("empty");
