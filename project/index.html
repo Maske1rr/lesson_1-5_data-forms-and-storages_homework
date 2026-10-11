@@ -27,10 +27,6 @@
       <section class="intro" aria-labelledby="page-title">
         <p class="intro__eyebrow">Формы и хранилища</p>
         <h1 class="intro__title" id="page-title">Сохраненная карточка</h1>
-        <p class="intro__lead">
-          Выберите тему, настройте форму и самостоятельно свяжите ввод,
-          отображение и хранение данных.
-        </p>
       </section>
 
       <section class="workspace" id="workspace" aria-labelledby="workspace-title">
@@ -39,8 +35,6 @@
             <p class="workspace__kicker">Рабочая область</p>
             <h2 class="workspace__title" id="workspace-title">Ваша тема</h2>
           </div>
-
-          <p class="workspace__status" aria-live="polite">Данные еще не проверены</p>
         </header>
 
         <!-- Состояние 1: показывается, когда сохраненных данных нет. -->
@@ -68,7 +62,7 @@
                 <p class="card-form__kicker">Редактирование</p>
                 <h3 class="card-form__title">Данные карточки</h3>
               </div>
-              <p class="card-form__note">Добавьте еще минимум три осмысленных поля</p>
+              <p class="card-form__draft" aria-live="polite" hidden>Черновик сохранен в этой вкладке</p>
             </header>
 
             <!-- Это один пример связки label, id и name. Остальные поля создайте сами. -->
@@ -80,13 +74,91 @@
                 name="title"
                 type="text"
                 minlength="3"
-                placeholder="Например, Городской маршрут"
+                placeholder="Название фильма"
                 required
               />
               <span class="field__hint">Минимум 3 символа</span>
             </div>
 
             <!-- Добавьте поля, которые описывают именно вашу тему. -->
+
+            <div class="field">
+              <label class="field__label" for="card-genre">Жанр</label>
+              <select class="field__control" id="card-genre" name="genre" required>
+                <option value="">Выберите жанр</option>
+                <option value="Боевик">Боевик</option>
+                <option value="Фантастика">Фантастика</option>
+                <option value="Приключения">Приключения</option>
+                <option value="Драма">Драма</option>
+                <option value="Мелодрама">Мелодрама</option>
+                <option value="Комедия">Комедия</option>
+                <option value="Триллер">Триллер</option>
+                <option value="Ужасы">Ужасы</option>
+                <option value="Детектив">Детектив</option>
+                <option value="Вестерн">Вестерн</option>
+              </select>
+              <span class="field__hint">Один основной жанр</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-year">Год выхода</label>
+              <input
+                class="field__control"
+                id="card-year"
+                name="year"
+                type="number"
+                min="1895"
+                max="2030"
+                placeholder="Год выхода фильма"
+                required
+              />
+              <span class="field__hint">От 1895 до 2030</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-watched-at">Дата просмотра</label>
+              <input
+                class="field__control"
+                id="card-watched-at"
+                name="watchedAt"
+                type="date"
+                required
+              />
+              <span class="field__hint">Когда вы посмотрели фильм</span>
+              <span class="field__error" id="card-watched-at-error" aria-live="polite" hidden>
+                Дата просмотра не может быть раньше года выхода фильма
+              </span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-rating">Оценка</label>
+              <input
+                class="field__control"
+                id="card-rating"
+                name="rating"
+                type="number"
+                min="1"
+                max="10"
+                step="1"
+                placeholder="Оценка от 1 до 10"
+                required
+              />
+              <span class="field__hint">Целое число от 1 до 10</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-review">Впечатление</label>
+              <textarea
+                class="field__control"
+                id="card-review"
+                name="review"
+                minlength="10"
+                maxlength="500"
+                placeholder="Впечатление о фильме"
+                required
+              ></textarea>
+              <span class="field__hint">От 10 до 500 символов</span>
+            </div>
 
             <div class="card-form__actions">
               <button class="button button--primary" type="submit">
@@ -105,14 +177,30 @@
 
           <article class="saved-card">
             <p class="saved-card__label">Сохраненная карточка</p>
-            <h3 class="saved-card__title">Название появится здесь</h3>
+            <h3 class="saved-card__title" data-card-field="title">Название появится здесь</h3>
 
             <dl class="saved-card__details">
               <div class="saved-card__row">
-                <dt>Свойство</dt>
-                <dd>Значение</dd>
+                <dt>Жанр</dt>
+                <dd data-card-field="genre"></dd>
               </div>
               <!-- Добавьте строки или другую разметку для всех полей формы. -->
+              <div class="saved-card__row">
+                <dt>Год выхода</dt>
+                <dd data-card-field="year"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Дата просмотра</dt>
+                <dd data-card-field="watchedAt"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Оценка</dt>
+                <dd data-card-field="rating"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Впечатление</dt>
+                <dd data-card-field="review"></dd>
+              </div>
             </dl>
 
             <div class="saved-card__actions">

@@ -212,6 +212,7 @@ textarea {
 .card-form__title,
 .saved-card__title {
   font-size: clamp(1.8rem, 4vw, 3rem);
+  overflow-wrap: anywhere;
 }
 
 .card-form__note {
@@ -219,6 +220,16 @@ textarea {
   margin: 0;
   color: var(--muted);
   font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.card-form__draft {
+  max-width: 240px;
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 750;
   line-height: 1.5;
   text-align: right;
 }
@@ -257,6 +268,13 @@ textarea.field__control {
 .field__hint {
   color: var(--muted);
   font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.field__error {
+  color: var(--danger);
+  font-size: 0.78rem;
+  font-weight: 750;
   line-height: 1.45;
 }
 
