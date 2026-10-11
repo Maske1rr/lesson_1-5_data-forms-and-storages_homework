@@ -4,6 +4,32 @@
 console.log("Стартовый проект подключен")
 
 const form = document.querySelector(".card-form");
+const panels = document.querySelectorAll("[data-state-panel]");
+const cardFields = document.querySelectorAll("[data-card-field]");
+const createButton = document.querySelector('[data-action="create"]');
+const cancelButton = document.querySelector('[data-action="cancel"]');
+const editButton = document.querySelector('[data-action="edit"]');
+const deleteButton = document.querySelector('[data-action="delete"]');
+
+let savedCard = null;
+
+function showState(name) {
+  panels.forEach((panel) => {
+    panel.hidden = panel.dataset.statePanel !== name;
+  });
+}
+
+function renderCard(card) {
+  cardFields.forEach((element) => {
+    element.textContent = card[element.dataset.cardField];
+  });
+}
+
+function fillForm(card) {
+  Object.entries(card).forEach(([name, value]) => {
+    form.elements[name].value = value;
+  });
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -19,6 +45,27 @@ form.addEventListener("submit", (event) => {
     review: formData.get("review"),
   };
 
-  console.log(card);
+  savedCard = card;
+  renderCard(savedCard);
+  showState("viewer");
 });
 
+createButton.addEventListener("click", () => {
+  form.reset();
+  showState("editor");
+});
+
+cancelButton.addEventListener("click", () => {
+  showState(savedCard ? "viewer" : "empty");
+});
+
+editButton.addEventListener("click", () => {
+  fillForm(savedCard);
+  showState("editor");
+});
+
+deleteButton.addEventListener("click", () => {
+  savedCard = null;
+  form.reset();
+  showState("empty");
+});

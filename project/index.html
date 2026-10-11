@@ -180,14 +180,30 @@
 
           <article class="saved-card">
             <p class="saved-card__label">Сохраненная карточка</p>
-            <h3 class="saved-card__title">Название появится здесь</h3>
+            <h3 class="saved-card__title" data-card-field="title">Название появится здесь</h3>
 
             <dl class="saved-card__details">
               <div class="saved-card__row">
-                <dt>Свойство</dt>
-                <dd>Значение</dd>
+                <dt>Жанр</dt>
+                <dd data-card-field="genre"></dd>
               </div>
               <!-- Добавьте строки или другую разметку для всех полей формы. -->
+              <div class="saved-card__row">
+                <dt>Год выхода</dt>
+                <dd data-card-field="year"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Дата просмотра</dt>
+                <dd data-card-field="watchedAt"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Моя оценка</dt>
+                <dd data-card-field="rating"></dd>
+              </div>
+              <div class="saved-card__row">
+                <dt>Впечатление</dt>
+                <dd data-card-field="review"></dd>
+              </div>
             </dl>
 
             <div class="saved-card__actions">
