@@ -80,13 +80,88 @@
                 name="title"
                 type="text"
                 minlength="3"
-                placeholder="Например, Городской маршрут"
+                placeholder="Название фильма"
                 required
               />
               <span class="field__hint">Минимум 3 символа</span>
             </div>
 
             <!-- Добавьте поля, которые описывают именно вашу тему. -->
+
+            <div class="field">
+              <label class="field__label" for="card-genre">Жанр</label>
+              <select class="field__control" id="card-genre" name="genre" required>
+                <option value="">Выберите жанр</option>
+                <option value="Боевик">Боевик</option>
+                <option value="Фантастика">Фантастика</option>
+                <option value="Приключения">Приключения</option>
+                <option value="Драма">Драма</option>
+                <option value="Мелодрама">Мелодрама</option>
+                <option value="Комедия">Комедия</option>
+                <option value="Триллер">Триллер</option>
+                <option value="Ужасы">Ужасы</option>
+                <option value="Детектив">Детектив</option>
+                <option value="Вестерн">Вестерн</option>
+              </select>
+              <span class="field__hint">Один основной жанр</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-year">Год выхода</label>
+              <input
+                class="field__control"
+                id="card-year"
+                name="year"
+                type="number"
+                min="1895"
+                max="2030"
+                placeholder="Год выхода фильма"
+                required
+              />
+              <span class="field__hint">От 1895 до 2030</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-watched-at">Дата просмотра</label>
+              <input
+                class="field__control"
+                id="card-watched-at"
+                name="watchedAt"
+                type="date"
+                required
+              />
+              <span class="field__hint">Когда вы посмотрели фильм</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-rating">Моя оценка</label>
+              <input
+                class="field__control"
+                id="card-rating"
+                name="rating"
+                type="number"
+                min="1"
+                max="10"
+                step="1"
+                placeholder="Оценка от 1 до 10"
+                required
+              />
+              <span class="field__hint">Целое число от 1 до 10</span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="card-review">Впечатление</label>
+              <textarea
+                class="field__control"
+                id="card-review"
+                name="review"
+                minlength="10"
+                maxlength="500"
+                placeholder="Впечатление о фильме"
+                required
+              ></textarea>
+              <span class="field__hint">От 10 до 500 символов</span>
+            </div>
 
             <div class="card-form__actions">
               <button class="button button--primary" type="submit">
