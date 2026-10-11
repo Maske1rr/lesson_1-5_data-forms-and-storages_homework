@@ -261,6 +261,13 @@ textarea.field__control {
   line-height: 1.45;
 }
 
+.field__error {
+  color: var(--danger);
+  font-size: 0.78rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
 .card-form__actions,
 .saved-card__actions {
   display: flex;

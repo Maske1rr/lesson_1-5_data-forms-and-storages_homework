@@ -10,6 +10,7 @@ const createButton = document.querySelector('[data-action="create"]');
 const cancelButton = document.querySelector('[data-action="cancel"]');
 const editButton = document.querySelector('[data-action="edit"]');
 const deleteButton = document.querySelector('[data-action="delete"]');
+const watchedAtError = document.querySelector("#card-watched-at-error");
 
 const STORAGE_KEY = "movie-card";
 const DRAFT_KEY = "movie-card-draft";
@@ -48,8 +49,22 @@ function fillForm(card) {
   });
 }
 
+function checkWatchedAt() {
+  const year = Number(form.elements["year"].value);
+  const watchedAt = form.elements["watchedAt"].value;
+  const isValid = !year || !watchedAt || Number(watchedAt.slice(0, 4)) >= year;
+
+  watchedAtError.hidden = isValid;
+  return isValid;
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+
+  if (!checkWatchedAt()) {
+    form.elements["watchedAt"].focus();
+    return;
+  }
 
   const formData = new FormData(form);
 
@@ -70,12 +85,17 @@ form.addEventListener("submit", (event) => {
 });
 
 form.addEventListener("input", () => {
+  if (!watchedAtError.hidden) {
+    checkWatchedAt();
+  }
+
   const draft = Object.fromEntries(new FormData(form));
   sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
 });
 
 createButton.addEventListener("click", () => {
   form.reset();
+  watchedAtError.hidden = true;
   showState("editor");
 });
 
@@ -86,6 +106,7 @@ cancelButton.addEventListener("click", () => {
 
 editButton.addEventListener("click", () => {
   fillForm(savedCard);
+  watchedAtError.hidden = true;
   showState("editor");
 });
 
